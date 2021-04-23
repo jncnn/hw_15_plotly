@@ -95,13 +95,12 @@ function ShowMetaData(sampleId) {
 }
 //end of showmetadata
 // gauge chart and it is not working right now???
-function drawGaugeChart(sampleId) {
-
-    console.log("Drawing gauge chart using sample: ", sampleId);
-    d3.json("data/samples.json").then((data) => {
+function drawGaugeChart(id) {
+    console.log("Drawing gauge chart using sample: ", id);
+    d3.json("data/samples.json").then((data) => 
+    {
         var metadata = data.metadata;
-
-        var resultArray = metadata.filter(sampleObj => sampleObj.id == sampleId);
+        var resultArray = metadata.filter(sampleObj => sampleObj.id == id);
         var result = resultArray[0];
         var wfreq = result.wfreq;
         var guageData = [
@@ -151,6 +150,7 @@ function optionChanged(newSampleId) {
     DrawBargraph(newSampleId);
     DrawBubblegraph(newSampleId);
     ShowMetaData(newSampleId);
+    drawGaugeChart(newSampleId);
 }
 // from office hours with Dom
 function InitDashboard() {
@@ -173,7 +173,7 @@ function InitDashboard() {
         DrawBargraph(id);
         DrawBubblegraph(id);
         ShowMetaData(id);
-
+        drawGaugeChart(id);
     });
 }
 InitDashboard();
